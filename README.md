@@ -1,3 +1,5 @@
+# JOB06 PLSQL Triggers
+
 -  **Example 1.** Trigger `new_employee` that inserts a record into the table seniority each time a record is inserted into the employee table. The years column will be set to 0. It would fire, for example, on command:
 ```
 INSERT employee VALUES (7,'hagsdhgsd','111',20);

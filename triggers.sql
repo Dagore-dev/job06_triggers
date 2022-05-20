@@ -33,3 +33,28 @@ BEGIN
 END;
 /
 -- 4
+CREATE OR REPLACE TRIGGER update_item
+  AFTER INSERT ON sales
+  FOR EACH ROW
+BEGIN
+  UPDATE item
+    SET stock = stock - :new.units
+    WHERE item_id = :new.item_id;
+END;
+/
+-- 5
+CREATE OR REPLACE TRIGGER delete_item
+  BEFORE DELETE ON item
+  FOR EACH ROW
+BEGIN
+  INSERT INTO record_history VALUES(:old.id, :old.name, USER, SYSDATE);
+END;
+/
+-- 6
+CREATE OR REPLACE TRIGGER after_delete
+  AFTER DELETE ON t1
+  FOR EACH ROW
+BEGIN
+  INSERT INTO audit_t1 VALUES (NULL, :old.id, :old.column1, :old.column2);
+END;
+/
